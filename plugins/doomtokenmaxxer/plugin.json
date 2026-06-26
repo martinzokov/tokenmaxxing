@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "id": "doomtokenmaxxer",
+  "name": "DoomTokenMaxxer",
+  "version": "0.0.1",
+  "entry": "plugin.js",
+  "icon": "icon.svg",
+  "brandColor": "#ff2a2a",
+  "lines": [
+    { "type": "progress", "label": "Daily seethe", "scope": "overview", "primaryOrder": 1 },
+    { "type": "progress", "label": "Weekly cope", "scope": "overview", "primaryOrder": 2 },
+    { "type": "text", "label": "Oracle says", "scope": "overview" },
+    { "type": "badge", "label": "Rank", "scope": "overview" },
+    { "type": "text", "label": "Days since last rate limit", "scope": "detail" }
+  ]
+}

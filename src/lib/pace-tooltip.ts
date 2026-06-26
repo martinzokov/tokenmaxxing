@@ -3,7 +3,14 @@ import type { ProgressFormat } from "@/lib/plugin-types"
 import type { DisplayMode } from "@/lib/settings"
 import { formatCountNumber, formatFixedPrecisionNumber } from "@/lib/utils"
 
-export function getPaceStatusText(status: PaceStatus): string {
+const DRAMATIC_PACE_TEXT: Record<PaceStatus, string> = {
+  ahead: "Still coping",
+  "on-track": "Getting mogged",
+  behind: "TOKEN DEATH IMMINENT",
+}
+
+export function getPaceStatusText(status: PaceStatus, dramatic = false): string {
+  if (dramatic) return DRAMATIC_PACE_TEXT[status]
   return status === "ahead" ? "Plenty of room" : status === "on-track" ? "Right on target" : "Will run out"
 }
 

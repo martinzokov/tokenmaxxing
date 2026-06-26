@@ -1,4 +1,6 @@
 import { ProviderCard } from "@/components/provider-card"
+import { DoomClock } from "@/components/unhinged/doom-clock"
+import { TokenOracle } from "@/components/unhinged/token-oracle"
 import { Gauge } from "lucide-react"
 import type { PluginDisplayState } from "@/lib/plugin-types"
 import type { DisplayMode, ResetTimerDisplayMode, TimeFormatMode } from "@/lib/settings"
@@ -34,6 +36,8 @@ export function OverviewPage({
 
   return (
     <div>
+      <DoomClock plugins={plugins} />
+      <TokenOracle plugins={plugins} />
       {plugins.map((plugin, index) => (
         <ProviderCard
           key={plugin.meta.id}

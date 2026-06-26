@@ -17,6 +17,7 @@ import { clamp01, formatCountNumber, formatFixedPrecisionNumber } from "@/lib/ut
 import { calculateDeficit, calculatePaceStatus, type PaceStatus } from "@/lib/pace-status"
 import { buildPaceDetailText, formatDeficitText, formatRunsOutText, getPaceStatusText } from "@/lib/pace-tooltip"
 import { formatResetAbsoluteLabel, formatResetRelativeLabel, formatResetTooltipText } from "@/lib/reset-tooltip"
+import { useUnhingedStore } from "@/stores/unhinged-store"
 
 interface ProviderCardProps {
   name: string
@@ -55,7 +56,8 @@ function PaceIndicator({
 }) {
   const colorClass = PACE_VISUALS[status].dotClass
 
-  const statusText = getPaceStatusText(status)
+  const dramaticMode = useUnhingedStore((s) => s.dramaticMode)
+  const statusText = getPaceStatusText(status, dramaticMode)
 
   return (
     <Tooltip>

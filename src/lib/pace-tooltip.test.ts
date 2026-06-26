@@ -20,6 +20,12 @@ describe("pace-tooltip", () => {
     expect(getPaceStatusText("behind")).toBe("Will run out")
   })
 
+  it("maps unhinged pace status labels in dramatic mode", () => {
+    expect(getPaceStatusText("ahead", true)).toBe("Still coping")
+    expect(getPaceStatusText("on-track", true)).toBe("Getting mogged")
+    expect(getPaceStatusText("behind", true)).toBe("TOKEN DEATH IMMINENT")
+  })
+
   it("formats compact durations", () => {
     expect(formatCompactDuration(30_000)).toBe("<1m")
     expect(formatCompactDuration(5 * 60_000)).toBe("5m")

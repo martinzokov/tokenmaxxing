@@ -11,6 +11,17 @@ bar. No dashboards, no tab-digging, no mental math.
 > OpenUsage is a macOS menu-bar app by [Robin Ebers](https://github.com/robinebers) — and it only runs on macOS.
 > Tokenmaxxing is the community port that brings it to **Windows and Linux**. Not affiliated with or endorsed by OpenUsage; all original design and credit go to its authors — see [CREDITS.md](CREDITS.md).
 
+> ### 🔥 This is the unhinged fork
+>
+> *“Token death is a social construct. We maxx anyway.”*
+>
+> This build adds a **satirical "Unhinged Mode"** on top of the rock-solid tracker:
+> dramatic pace labels, a **Token Oracle** that roasts you, and a **Doom Clock**
+> counting down to quota death. **It's a joke wrapped around a real tool** — the
+> tracking underneath is accurate and untouched. Don't want the bit? Toggle
+> **Dramatic Mode off** in Settings (sane mode) and it's the plain tracker again.
+> Full design notes in [UNHINGED_SPEC.md](UNHINGED_SPEC.md).
+
 ## Platform status
 
 | Platform | Status |
@@ -44,6 +55,19 @@ Tokenmaxxing lives in your task bar and shows how much of each AI subscription y
 - **[Local HTTP API](docs/local-http-api.md).** Read your usage from `127.0.0.1:6736`.
 - **[Proxy support](docs/proxy.md).** Route provider requests through SOCKS5 / HTTP.
 - **[Remote dashboard](remote/README.md).** Serve your usage to other machines.
+
+### Unhinged Mode (toggleable)
+
+On by default in this fork; flip it off in **Settings → Unhinged Mode** for plain
+sane tracking.
+
+- **Dramatic pace labels.** *Still coping* → *Getting mogged* → *TOKEN DEATH IMMINENT*.
+- **Token Oracle.** Curated copium/roasts, weighted by how cooked you are.
+- **Doom Clock.** Live countdown to the wall on your most-constrained provider.
+- **Cope Intensity slider.** Decide how unhinged the messaging gets (0 = touch grass).
+
+Building your own meme provider? See the example plugin in
+[`plugins/doomtokenmaxxer/`](plugins/doomtokenmaxxer/) — dramatic fake data, no network.
 
 ## Supported providers
 

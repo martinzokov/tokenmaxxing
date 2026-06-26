@@ -8,6 +8,7 @@ import { groupLinesByType } from "@/lib/group-lines-by-type"
 import { formatResetTooltipText } from "@/lib/reset-tooltip"
 import { REFRESH_COOLDOWN_MS } from "@/lib/settings"
 import { formatFixedPrecisionNumber } from "@/lib/utils"
+import { useUnhingedStore } from "@/stores/unhinged-store"
 
 vi.mock("@tauri-apps/plugin-opener", () => ({
   openUrl: vi.fn(() => Promise.resolve()),
@@ -43,6 +44,8 @@ describe("ProviderCard", () => {
   beforeEach(() => {
     vi.useRealTimers()
     vi.mocked(openUrl).mockClear()
+    // Default to sane labels so pace-text assertions below stay stable.
+    useUnhingedStore.setState({ dramaticMode: false })
   })
 
   it("renders error state with retry", async () => {
@@ -558,6 +561,32 @@ describe("ProviderCard", () => {
     expect(markers[1]?.style.left).toBe("50%")
     expect(markers[0]).toHaveClass("bg-muted-foreground")
     expect(markers[1]).toHaveClass("bg-muted-foreground")
+    vi.useRealTimers()
+  })
+
+  it("uses unhinged pace labels when dramatic mode is on", () => {
+    useUnhingedStore.setState({ dramaticMode: true })
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date("2026-02-02T12:00:00.000Z"))
+    render(
+      <ProviderCard
+        name="Pace"
+        displayMode="used"
+        lines={[
+          {
+            type: "progress",
+            label: "Behind",
+            used: 60,
+            limit: 100,
+            format: { kind: "percent" },
+            resetsAt: "2026-02-03T00:00:00.000Z",
+            periodDurationMs: 24 * 60 * 60 * 1000,
+          },
+        ]}
+      />
+    )
+    expect(screen.getByLabelText("TOKEN DEATH IMMINENT")).toBeInTheDocument()
+    expect(screen.queryByLabelText("Will run out")).not.toBeInTheDocument()
     vi.useRealTimers()
   })
 

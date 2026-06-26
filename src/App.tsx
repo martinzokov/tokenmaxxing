@@ -15,6 +15,7 @@ import { useTrayIcon } from "@/hooks/app/use-tray-icon"
 import { useAppPluginStore } from "@/stores/app-plugin-store"
 import { useAppPreferencesStore } from "@/stores/app-preferences-store"
 import { useAppUiStore } from "@/stores/app-ui-store"
+import { useUnhingedStore } from "@/stores/unhinged-store"
 import { isMacPlatform } from "@/lib/platform"
 
 const TRAY_PROBE_DEBOUNCE_MS = 500
@@ -116,6 +117,10 @@ function App() {
       scheduleTrayIconUpdate("probe", TRAY_PROBE_DEBOUNCE_MS)
     }
   }, [scheduleTrayIconUpdate])
+
+  useEffect(() => {
+    void useUnhingedStore.getState().hydrate()
+  }, [])
 
   useEffect(() => {
     if (isMacPlatform()) return

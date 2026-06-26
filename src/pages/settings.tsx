@@ -13,6 +13,7 @@ import {
   StartOnLoginSection,
 } from "@/components/settings/system-settings-sections";
 import { ThemeSection } from "@/components/settings/theme-section";
+import { UnhingedSection } from "@/components/settings/unhinged-section";
 import type { TraySettingsPreview } from "@/hooks/app/use-tray-icon";
 import {
   type AutoUpdateIntervalMinutes,
@@ -122,6 +123,7 @@ export function SettingsPage({
         themeMode={themeMode}
         onThemeModeChange={onThemeModeChange}
       />
+      <UnhingedSection />
       <GlobalShortcutSection
         globalShortcut={globalShortcut}
         onGlobalShortcutChange={onGlobalShortcutChange}
