@@ -1,5 +1,6 @@
 import { ProviderCard } from "@/components/provider-card"
 import { DoomClock } from "@/components/unhinged/doom-clock"
+import { SeetheHeader } from "@/components/unhinged/seethe-header"
 import { TokenOracle } from "@/components/unhinged/token-oracle"
 import { Gauge } from "lucide-react"
 import type { PluginDisplayState } from "@/lib/plugin-types"
@@ -36,6 +37,7 @@ export function OverviewPage({
 
   return (
     <div>
+      <SeetheHeader plugins={plugins} />
       <DoomClock plugins={plugins} />
       <TokenOracle plugins={plugins} />
       {plugins.map((plugin, index) => (
