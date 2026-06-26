@@ -63,7 +63,7 @@ sane tracking.
 
 - **Seethe Level + Rank.** A 0–100 aggregate of all your providers, with an
   unhinged rank ladder (*Promptlet* → *Token Deity*).
-- **Dramatic pace labels.** *Still coping* → *Getting mogged* → *TOKEN DEATH IMMINENT*.
+- **Dramatic pace labels.** *COPING LIKE A PROMPTLET* → *GETTING ABSOLUTELY MOGGED* → *!!! TOKEN DEATH IMMINENT !!!*.
 - **Token Oracle.** Curated copium/roasts, weighted by how cooked you are.
 - **Doom Clock.** Live countdown to the wall on your most-constrained provider.
 - **Cope Intensity slider.** Decide how unhinged the messaging gets (0 = touch grass).

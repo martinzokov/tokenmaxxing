@@ -7,7 +7,7 @@ function copeLabel(intensity: number): string {
   if (intensity <= 20) return "Touching grass";
   if (intensity <= 50) return "Mildly cooked";
   if (intensity <= 80) return "Seething";
-  return "Maximally unhinged";
+  return "BEYOND REASON";
 }
 
 export function UnhingedSection() {

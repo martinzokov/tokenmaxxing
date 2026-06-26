@@ -431,7 +431,7 @@ function MetricLineRenderer({
         : Math.max(0, line.limit - line.used)
     const percent = Math.round(clamp01(shownAmount / line.limit) * 10000) / 100
     const leftSuffix = dramaticMode
-      ? displayMode === "left" ? " to live" : " burned"
+      ? displayMode === "left" ? " SECONDS TO LIVE" : " OBLITERATED"
       : displayMode === "left" ? " left" : ""
 
     const primaryText =

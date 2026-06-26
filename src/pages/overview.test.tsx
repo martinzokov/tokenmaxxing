@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react"
 import { describe, expect, it } from "vitest"
 import { OverviewPage } from "@/pages/overview"
+import { useUnhingedStore } from "@/stores/unhinged-store"
 
 describe("OverviewPage", () => {
   it("renders empty state", () => {
@@ -55,6 +56,46 @@ describe("OverviewPage", () => {
     expect(screen.getByText("Shown")).toBeInTheDocument()
     expect(screen.queryByText("Secondary")).not.toBeInTheDocument()
     expect(screen.queryByText("Hidden")).not.toBeInTheDocument()
+  })
+
+  it("shows unhinged components when dramatic mode is on", () => {
+    useUnhingedStore.setState({ dramaticMode: true, demoMode: true, demoScore: 99, copeIntensity: 50 })
+    const plugins = [
+      {
+        meta: { id: "a", name: "Alpha", iconUrl: "icon", lines: [] },
+        data: {
+          providerId: "a",
+          displayName: "Alpha",
+          lines: [{ type: "progress" as const, label: "U", used: 95, limit: 100, format: { kind: "percent" as const } }],
+          iconUrl: "icon",
+        },
+        loading: false,
+        error: null,
+        lastManualRefreshAt: null,
+        lastUpdatedAt: 1,
+      },
+    ]
+    render(<OverviewPage plugins={plugins} displayMode="used" resetTimerDisplayMode="relative" />)
+    expect(screen.getByText(/Seethe Level/)).toBeInTheDocument()
+    expect(screen.getByText(/Token Deity/)).toBeInTheDocument()
+    expect(screen.getByText(/THE WALL IS NOT A METAPHOR/i)).toBeInTheDocument()
+  })
+
+  it("hides unhinged components when dramatic mode is off", () => {
+    useUnhingedStore.setState({ dramaticMode: false })
+    const plugins = [
+      {
+        meta: { id: "a", name: "Alpha", iconUrl: "icon", lines: [] },
+        data: { providerId: "a", displayName: "Alpha", lines: [], iconUrl: "icon" },
+        loading: false,
+        error: null,
+        lastManualRefreshAt: null,
+        lastUpdatedAt: null,
+      },
+    ]
+    render(<OverviewPage plugins={plugins} displayMode="used" resetTimerDisplayMode="relative" />)
+    expect(screen.queryByText(/Seethe Level/)).not.toBeInTheDocument()
+    expect(screen.queryByText(/Token Oracle/i)).not.toBeInTheDocument()
   })
 
   it("does not show provider quick links in combined view", () => {

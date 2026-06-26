@@ -25,21 +25,28 @@ export function SeetheHeader({ plugins }: { plugins: PluginDisplayState[] }) {
   if (!dramaticMode) return null
 
   const { score, tier, tagline, rank, cooked, total } = agg
+  const maxSeethe = score >= 90
 
   return (
-    <div className="mb-3 px-3 py-2 rounded-md border border-border/50 bg-muted/30">
+    <div
+      className={`mb-3 px-3 py-2 rounded-md border bg-muted/30 ${
+        maxSeethe ? "border-red-500/60 animate-pulse" : "border-border/50"
+      }`}
+    >
       <div className="flex items-baseline justify-between gap-2">
         <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-          Seethe Level{demoMode ? " · DEMO" : ""}
+          {maxSeethe ? "!!! " : ""}Seethe Level{demoMode ? " · DEMO" : ""}{maxSeethe ? " !!!" : ""}
         </span>
         <span className={`text-lg font-bold tabular-nums leading-none ${scoreColor(score)}`}>
           {score}
-          <span className="text-[10px] font-normal text-muted-foreground"> / 100 · {tier}</span>
+          <span className="text-[10px] font-normal text-muted-foreground">
+            {" "}/ 100 · {maxSeethe ? `!!! ${tier} !!!` : tier}
+          </span>
         </span>
       </div>
       <div className="mt-1.5 h-1 w-full overflow-hidden rounded-full bg-muted">
         <div
-          className={`h-full rounded-full transition-all ${barColor(score)}`}
+          className={`h-full rounded-full transition-all ${barColor(score)}${maxSeethe ? " animate-pulse" : ""}`}
           style={{ width: `${score}%` }}
         />
       </div>

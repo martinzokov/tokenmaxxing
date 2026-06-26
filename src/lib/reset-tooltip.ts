@@ -41,11 +41,11 @@ export function formatResetRelativeLabel(
   resetsAtIso: string,
   dramatic = false,
 ): string | null {
-  const verb = dramatic ? "Respawns" : "Resets"
+  const verb = dramatic ? "RESPAWNS" : "Resets"
   const resetsAtMs = parseResetTimestamp(resetsAtIso)
   if (resetsAtMs === null) return null
   const deltaMs = resetsAtMs - nowMs
-  if (deltaMs < RESET_SOON_THRESHOLD_MS) return dramatic ? "Respawning soon" : "Resets soon"
+  if (deltaMs < RESET_SOON_THRESHOLD_MS) return dramatic ? "RESPAWN IMMINENT — TICK TOCK" : "Resets soon"
   const durationText = formatCompactDuration(deltaMs)
   return durationText ? `${verb} in ${durationText}` : null
 }
@@ -56,10 +56,10 @@ export function formatResetAbsoluteLabel(
   timeFormatMode: TimeFormatMode = "auto",
   dramatic = false,
 ): string | null {
-  const verb = dramatic ? "Respawns" : "Resets"
+  const verb = dramatic ? "RESPAWNS" : "Resets"
   const resetsAtMs = parseResetTimestamp(resetsAtIso)
   if (resetsAtMs === null) return null
-  if (resetsAtMs - nowMs <= 0) return dramatic ? "Respawning soon" : "Resets soon"
+  if (resetsAtMs - nowMs <= 0) return dramatic ? "RESPAWN IMMINENT — TICK TOCK" : "Resets soon"
   const dayDiff = getLocalDayIndex(resetsAtMs) - getLocalDayIndex(nowMs)
   const timeText = getTimeFormatter(timeFormatMode).format(resetsAtMs)
   if (dayDiff <= 0) return `${verb} today at ${timeText}`

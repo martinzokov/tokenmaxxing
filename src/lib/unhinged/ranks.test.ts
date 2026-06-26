@@ -16,6 +16,11 @@ describe("rankForScore", () => {
     expect(rankForScore(85).name).toBe("Quota Chad")
   })
 
+  it("returns escalated blurbs at the top of the ladder", () => {
+    expect(rankForScore(100).blurb).toBe("ASCENDED. THE DATACENTER KNOWS YOUR NAME.")
+    expect(rankForScore(85).blurb).toBe("BUILT DIFFERENT. RATE LIMITS FEAR YOU.")
+  })
+
   it("clamps out-of-range and garbage input", () => {
     expect(rankForScore(200).name).toBe("Token Deity")
     expect(rankForScore(-5).name).toBe("Promptlet")

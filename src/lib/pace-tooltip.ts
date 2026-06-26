@@ -4,9 +4,9 @@ import type { DisplayMode } from "@/lib/settings"
 import { formatCountNumber, formatFixedPrecisionNumber } from "@/lib/utils"
 
 const DRAMATIC_PACE_TEXT: Record<PaceStatus, string> = {
-  ahead: "Still coping",
-  "on-track": "Getting mogged",
-  behind: "TOKEN DEATH IMMINENT",
+  ahead: "COPING LIKE A PROMPTLET (barely)",
+  "on-track": "GETTING ABSOLUTELY MOGGED",
+  behind: "!!! TOKEN DEATH IMMINENT !!!",
 }
 
 export function getPaceStatusText(status: PaceStatus, dramatic = false): string {
@@ -76,7 +76,7 @@ export function formatRunsOutText({
 }): string | null {
   const durationText = getRunsOutDurationText({ paceResult, used, limit, periodDurationMs, resetsAtMs, nowMs })
   if (!durationText) return null
-  return dramatic ? `TOKEN DEATH in ${durationText}` : `Runs out in ${durationText}`
+  return dramatic ? `!!! TOKEN DEATH in ${durationText} !!!` : `Runs out in ${durationText}`
 }
 
 export function buildPaceDetailText({
@@ -118,7 +118,7 @@ export function formatDeficitText(
 ): string | null {
   if (!Number.isFinite(deficit) || deficit <= 0) return null
 
-  const suffix = dramatic ? "cooked" : displayMode === "left" ? "short" : "in deficit"
+  const suffix = dramatic ? "OBLITERATED" : displayMode === "left" ? "short" : "in deficit"
   if (format.kind === "percent") {
     const roundedPercent = Math.round(deficit)
     return roundedPercent > 0 ? `${roundedPercent}% ${suffix}` : null

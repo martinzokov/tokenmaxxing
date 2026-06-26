@@ -12,11 +12,11 @@ export type DoomClock = {
 /** Escalating doom as the wall gets closer. */
 export function doomMessageForEta(etaMs: number): string {
   const minutes = etaMs / 60_000
-  if (minutes <= 30) return "It is happening. Say goodbye to your quota."
-  if (minutes <= 120) return "The wall is in sight. There is no slowing down now."
-  if (minutes <= 12 * 60) return "Hours left. The seethe builds."
-  if (minutes <= 48 * 60) return "The clock is ticking, promptlet."
-  return "Plenty of runway. Embarrassing, honestly."
+  if (minutes <= 30) return "IT IS HAPPENING. KISS YOUR QUOTA GOODBYE."
+  if (minutes <= 120) return "THE WALL IS RIGHT THERE. DO NOT BRAKE."
+  if (minutes <= 12 * 60) return "HOURS LEFT. THE SEETHE IS VISCERAL."
+  if (minutes <= 48 * 60) return "CLOCK TICKING. STILL A PROMPTLET."
+  return "SO MUCH RUNWAY. STILL EMBARRASSING."
 }
 
 /**

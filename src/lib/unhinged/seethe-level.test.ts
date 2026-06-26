@@ -36,6 +36,7 @@ describe("computeSeetheLevel", () => {
     const s = computeSeetheLevel([plugin(1337, 100)])
     expect(s.score).toBe(100)
     expect(s.tier).toBe("MAXXED")
+    expect(s.tagline).toBe("TOKEN DEATH IS HERE. NO REFUNDS. GLORIOUS.")
   })
 
   it("a maxed demo provider does not pin a panel full of headroom", () => {

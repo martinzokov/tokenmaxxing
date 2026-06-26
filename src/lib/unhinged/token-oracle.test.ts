@@ -7,6 +7,11 @@ describe("pickOracleQuote", () => {
     expect(line).toMatch(/TOKEN DEATH/i)
   })
 
+  it("returns escalated doom line from expanded pool", () => {
+    const line = pickOracleQuote(0.95, 50, 4)
+    expect(line).toBe("THE WALL IS NOT A METAPHOR. IT IS TUESDAY.")
+  })
+
   it("returns chill lines when usage is low", () => {
     const line = pickOracleQuote(0.1, 50, 0)
     expect(line).toMatch(/still in bed/i)

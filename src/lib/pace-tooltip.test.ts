@@ -21,14 +21,14 @@ describe("pace-tooltip", () => {
   })
 
   it("maps unhinged pace status labels in dramatic mode", () => {
-    expect(getPaceStatusText("ahead", true)).toBe("Still coping")
-    expect(getPaceStatusText("on-track", true)).toBe("Getting mogged")
-    expect(getPaceStatusText("behind", true)).toBe("TOKEN DEATH IMMINENT")
+    expect(getPaceStatusText("ahead", true)).toBe("COPING LIKE A PROMPTLET (barely)")
+    expect(getPaceStatusText("on-track", true)).toBe("GETTING ABSOLUTELY MOGGED")
+    expect(getPaceStatusText("behind", true)).toBe("!!! TOKEN DEATH IMMINENT !!!")
   })
 
   it("uses unhinged deficit + runs-out text in dramatic mode", () => {
     expect(formatDeficitText(5, { kind: "percent" }, "left")).toBe("5% short")
-    expect(formatDeficitText(5, { kind: "percent" }, "left", true)).toBe("5% cooked")
+    expect(formatDeficitText(5, { kind: "percent" }, "left", true)).toBe("5% OBLITERATED")
     const runsOutArgs = {
       paceResult: { status: "behind", projectedUsage: 200 } as PaceResult,
       used: 80,
@@ -38,7 +38,7 @@ describe("pace-tooltip", () => {
       nowMs,
     }
     expect(formatRunsOutText(runsOutArgs)).toMatch(/^Runs out in /)
-    expect(formatRunsOutText({ ...runsOutArgs, dramatic: true })).toMatch(/^TOKEN DEATH in /)
+    expect(formatRunsOutText({ ...runsOutArgs, dramatic: true })).toMatch(/^!!! TOKEN DEATH in /)
   })
 
   it("formats compact durations", () => {

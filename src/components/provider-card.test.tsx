@@ -585,7 +585,7 @@ describe("ProviderCard", () => {
         ]}
       />
     )
-    expect(screen.getByLabelText("TOKEN DEATH IMMINENT")).toBeInTheDocument()
+    expect(screen.getByLabelText("!!! TOKEN DEATH IMMINENT !!!")).toBeInTheDocument()
     expect(screen.queryByLabelText("Will run out")).not.toBeInTheDocument()
     vi.useRealTimers()
   })

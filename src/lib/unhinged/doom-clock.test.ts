@@ -34,10 +34,10 @@ function plugin(name: string, used: number, limit: number): PluginDisplayState {
 
 describe("doomMessageForEta", () => {
   it("escalates as the wall nears", () => {
-    expect(doomMessageForEta(10 * 60_000)).toMatch(/It is happening/)
-    expect(doomMessageForEta(60 * 60_000)).toMatch(/wall is in sight/)
-    expect(doomMessageForEta(6 * 60 * 60_000)).toMatch(/Hours left/)
-    expect(doomMessageForEta(5 * DAY)).toMatch(/Plenty of runway/)
+    expect(doomMessageForEta(10 * 60_000)).toBe("IT IS HAPPENING. KISS YOUR QUOTA GOODBYE.")
+    expect(doomMessageForEta(60 * 60_000)).toBe("THE WALL IS RIGHT THERE. DO NOT BRAKE.")
+    expect(doomMessageForEta(6 * 60 * 60_000)).toBe("HOURS LEFT. THE SEETHE IS VISCERAL.")
+    expect(doomMessageForEta(5 * DAY)).toBe("SO MUCH RUNWAY. STILL EMBARRASSING.")
   })
 })
 

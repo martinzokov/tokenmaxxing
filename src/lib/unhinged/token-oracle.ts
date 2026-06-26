@@ -12,18 +12,21 @@ const ORACLE_LINES: Record<OracleTier, string[]> = {
     "Your context window is too small, king. Expand or stay a promptlet.",
     "Touching grass is just cope for people who can't afford the Max plan.",
     "Negative tokens burned is a skill issue.",
+    "Your commit history is 90% 'fix typo'. The tokens know.",
   ],
   coping: [
     "The quota fears you. Keep going.",
     "Every parallel agent is a soldier. Send more.",
     "You're not addicted, you're optimizing. There's a difference. Probably.",
     "Mogging the free tier was never the goal. Mog yourself.",
+    "Sleep is for people who haven't discovered agent swarms yet.",
   ],
   doom: [
     "TOKEN DEATH approaches. Make peace, then refresh.",
     "Your quota is on its knees. Finish it.",
     "The wall is real and you are running at it. Based.",
     "Rate limit incoming. This is the most alive you'll feel all week.",
+    "THE WALL IS NOT A METAPHOR. IT IS TUESDAY.",
   ],
 }
 
