@@ -8,6 +8,7 @@ export const DEFAULT_COPE_INTENSITY = 50; // 0 = sane, 100 = maximally unhinged
 
 const DRAMATIC_MODE_KEY = "dramaticMode";
 const COPE_INTENSITY_KEY = "copeIntensity";
+const ACHIEVEMENTS_KEY = "unlockedAchievements";
 
 const store = getSettingsStore();
 
@@ -33,5 +34,15 @@ export async function loadCopeIntensity(): Promise<number> {
 
 export async function saveCopeIntensity(value: number): Promise<void> {
   await store.set(COPE_INTENSITY_KEY, clampCopeIntensity(value));
+  await store.save();
+}
+
+export async function loadUnlockedAchievements(): Promise<string[]> {
+  const stored = await store.get<unknown>(ACHIEVEMENTS_KEY);
+  return Array.isArray(stored) ? stored.filter((s): s is string => typeof s === "string") : [];
+}
+
+export async function saveUnlockedAchievements(ids: string[]): Promise<void> {
+  await store.set(ACHIEVEMENTS_KEY, ids);
   await store.save();
 }

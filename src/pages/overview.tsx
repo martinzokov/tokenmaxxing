@@ -1,7 +1,11 @@
 import { ProviderCard } from "@/components/provider-card"
+import { Achievements } from "@/components/unhinged/achievements"
 import { DoomClock } from "@/components/unhinged/doom-clock"
 import { SeetheHeader } from "@/components/unhinged/seethe-header"
 import { TokenOracle } from "@/components/unhinged/token-oracle"
+import { useUnhingedAchievements } from "@/hooks/use-unhinged-achievements"
+import { useNowTicker } from "@/hooks/use-now-ticker"
+import { computeDoomClock } from "@/lib/unhinged/doom-clock"
 import { Gauge } from "lucide-react"
 import type { PluginDisplayState } from "@/lib/plugin-types"
 import type { DisplayMode, ResetTimerDisplayMode, TimeFormatMode } from "@/lib/settings"
@@ -35,11 +39,17 @@ export function OverviewPage({
     )
   }
 
+  const now = useNowTicker({ intervalMs: 30_000 })
+  const doom = computeDoomClock(plugins, now)
+  const hasDoom = !!doom
+  const unlocked = useUnhingedAchievements(plugins, hasDoom)
+
   return (
     <div>
       <SeetheHeader plugins={plugins} />
       <DoomClock plugins={plugins} />
       <TokenOracle plugins={plugins} />
+      <Achievements unlocked={unlocked} />
       {plugins.map((plugin, index) => (
         <ProviderCard
           key={plugin.meta.id}

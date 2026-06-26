@@ -90,3 +90,16 @@ Header: **`{provider} hits the wall in {duration}`**, plus an escalating message
 ## 8. README tagline
 
 > "Token death is a social construct. We maxx anyway."
+
+## 9. Achievements (Based Log)
+
+Shown when Dramatic on and any unlocked (via seethe/rank/cooked/doom/demo scrub).
+
+- !!! MAXXED !!! — Reached 90+ seethe
+- Token Deity — 95+
+- Quota Chad — 80+
+- Swarm Lord — 3+ cooked
+- Doom Chaser — saw live Doom Clock
+- Preview God — demo 95+ in preview
+
+Persistent except demo.

@@ -1,4 +1,6 @@
 import { PinOff, RefreshCw, Server, Settings } from "lucide-react"
+import { playRefreshSeethe } from "@/lib/unhinged/sound"
+import { useUnhingedStore } from "@/stores/unhinged-store"
 import { invoke } from "@tauri-apps/api/core"
 import { LazyStore } from "@tauri-apps/plugin-store"
 import { Button } from "@/components/ui/button"
@@ -38,6 +40,7 @@ export function PinnedOverlayBar({
   onViewChange,
   onRefreshAll,
 }: PinnedOverlayBarProps) {
+  const dramatic = useUnhingedStore((s) => s.dramaticMode)
   const setPinned = useAppUiStore((state) => state.setPanelPinned)
   const menubarIconStyle = useAppPreferencesStore((state) => state.menubarIconStyle)
   const machineSettings = useAppPreferencesStore((state) => state.machineSettings)
@@ -121,8 +124,12 @@ export function PinnedOverlayBar({
         type="button"
         variant="ghost"
         size="icon-sm"
-        aria-label="Refresh now"
-        onClick={onRefreshAll}
+        aria-label={dramatic ? "Seethe & refresh" : "Refresh now"}
+        title={dramatic ? "SEETHE & REFRESH" : "Refresh now"}
+        onClick={() => {
+          if (dramatic) playRefreshSeethe()
+          onRefreshAll()
+        }}
       >
         <RefreshCw className="size-4" />
       </Button>

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { LazyStore } from "@tauri-apps/plugin-store"
 import { useShallow } from "zustand/react/shallow"
 import { AppShell } from "@/components/app/app-shell"
@@ -16,6 +16,7 @@ import { useAppPluginStore } from "@/stores/app-plugin-store"
 import { useAppPreferencesStore } from "@/stores/app-preferences-store"
 import { useAppUiStore } from "@/stores/app-ui-store"
 import { useUnhingedStore } from "@/stores/unhinged-store"
+import { KonamiMatrix } from "@/components/unhinged/konami-matrix"
 import { isMacPlatform } from "@/lib/platform"
 
 const TRAY_PROBE_DEBOUNCE_MS = 500
@@ -23,6 +24,10 @@ const UI_STATE_STORE_PATH = "ui-state.json"
 const PANEL_PINNED_KEY = "panelPinned"
 
 function App() {
+  const [showKonami, setShowKonami] = useState(false)
+  const konamiSeq = useRef<string[]>([])
+  const KONAMI = ["ArrowUp","ArrowUp","ArrowDown","ArrowDown","ArrowLeft","ArrowRight","ArrowLeft","ArrowRight","KeyB","KeyA"]
+
   const { activeView, setActiveView, setPanelPinned } = useAppUiStore(
     useShallow((state) => ({
       activeView: state.activeView,
@@ -120,6 +125,21 @@ function App() {
 
   useEffect(() => {
     void useUnhingedStore.getState().hydrate()
+  }, [])
+
+  useEffect(() => {
+    const dramatic = useUnhingedStore.getState().dramaticMode
+    if (!dramatic) return
+    const onKey = (e: KeyboardEvent) => {
+      konamiSeq.current.push(e.code)
+      if (konamiSeq.current.length > KONAMI.length) konamiSeq.current.shift()
+      if (konamiSeq.current.join(",") === KONAMI.join(",")) {
+        konamiSeq.current = []
+        setShowKonami(true)
+      }
+    }
+    window.addEventListener("keydown", onKey)
+    return () => window.removeEventListener("keydown", onKey)
   }, [])
 
   useEffect(() => {
@@ -231,6 +251,7 @@ function App() {
   })
 
   return (
+    <>
     <AppShell
       onRefreshAll={handleRefreshAll}
       navPlugins={navPlugins}
@@ -261,6 +282,8 @@ function App() {
         onPanelKeepOnTaskbarChange: handlePanelKeepOnTaskbarChange,
       }}
     />
+    {showKonami && <KonamiMatrix onClose={() => setShowKonami(false)} />}
+  </>
   )
 }
 

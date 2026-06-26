@@ -7,6 +7,8 @@ const AboutDialog = lazy(() =>
 import type { UpdateStatus } from "@/hooks/use-app-update";
 import { useNowTicker } from "@/hooks/use-now-ticker";
 import { getDataSourceLabel } from "@/lib/data-source";
+import { playRefreshSeethe } from "@/lib/unhinged/sound";
+import { useUnhingedStore } from "@/stores/unhinged-store";
 
 interface PanelFooterProps {
   version: string;
@@ -106,16 +108,16 @@ export function PanelFooter({
 
   const dataSourceLabel = getDataSourceLabel();
 
+  const dramatic = useUnhingedStore((s) => s.dramaticMode);
   const countdownLabel = useMemo(() => {
-    if (!autoUpdateNextAt) return "Paused";
+    if (!autoUpdateNextAt) return dramatic ? "PAUSED (COPE)" : "Paused";
     const remainingMs = Math.max(0, autoUpdateNextAt - now);
     const totalSeconds = Math.ceil(remainingMs / 1000);
-    if (totalSeconds >= 60) {
-      const minutes = Math.ceil(totalSeconds / 60);
-      return `Next refresh in ${minutes}m`;
-    }
-    return `Next refresh in ${totalSeconds}s`;
-  }, [autoUpdateNextAt, now]);
+    const base = totalSeconds >= 60
+      ? `in ${Math.ceil(totalSeconds / 60)}m`
+      : `in ${totalSeconds}s`;
+    return dramatic ? `SEETHE ${base}` : `Next refresh ${base}`;
+  }, [autoUpdateNextAt, now, dramatic]);
 
   return (
     <>
@@ -144,10 +146,11 @@ export function PanelFooter({
             type="button"
             onClick={(event) => {
               event.currentTarget.blur()
+              if (dramatic) playRefreshSeethe()
               onRefreshAll()
             }}
             className="text-xs text-muted-foreground tabular-nums hover:text-foreground transition-colors cursor-pointer"
-            title="Refresh now"
+            title={dramatic ? "Seethe & refresh now" : "Refresh now"}
           >
             {countdownLabel}
           </button>

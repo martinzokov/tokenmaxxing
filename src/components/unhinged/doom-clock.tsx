@@ -1,7 +1,9 @@
 import { Skull } from "lucide-react"
 import type { PluginDisplayState } from "@/lib/plugin-types"
+import { useRef } from "react"
 import { useNowTicker } from "@/hooks/use-now-ticker"
 import { computeDoomClock } from "@/lib/unhinged/doom-clock"
+import { playDoomSting } from "@/lib/unhinged/sound"
 import { useUnhingedStore } from "@/stores/unhinged-store"
 
 export function DoomClock({ plugins }: { plugins: PluginDisplayState[] }) {
@@ -11,6 +13,14 @@ export function DoomClock({ plugins }: { plugins: PluginDisplayState[] }) {
   if (!dramaticMode) return null
 
   const doom = computeDoomClock(plugins, now)
+  const prev = useRef<string | null>(null)
+  if (doom) {
+    useUnhingedStore.getState().setSawDoom()
+    if (prev.current !== doom.providerName) playDoomSting()
+    prev.current = doom.providerName
+  } else {
+    prev.current = null
+  }
   if (!doom) return null
 
   return (

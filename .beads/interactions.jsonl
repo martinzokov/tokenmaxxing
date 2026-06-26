@@ -13,3 +13,7 @@
 {"id":"int-5f7d9cfa","kind":"field_change","created_at":"2026-06-26T11:06:37.827711Z","actor":"zokov","issue_id":"tokenmaxxing-r7v","extra":{"field":"status","new_value":"closed","old_value":"in_progress"}}
 {"id":"int-51bb2fae","kind":"field_change","created_at":"2026-06-26T11:06:38.259539Z","actor":"zokov","issue_id":"tokenmaxxing-pac","extra":{"field":"status","new_value":"closed","old_value":"in_progress"}}
 {"id":"int-8a95f5e9","kind":"field_change","created_at":"2026-06-26T11:06:38.668781Z","actor":"zokov","issue_id":"tokenmaxxing-3l9","extra":{"field":"status","new_value":"closed","old_value":"in_progress"}}
+{"id":"int-5b101f36","kind":"field_change","created_at":"2026-06-26T11:13:54.871116Z","actor":"zokov","issue_id":"tokenmaxxing-1jy","extra":{"field":"status","new_value":"closed","old_value":"in_progress"}}
+{"id":"int-da31871c","kind":"field_change","created_at":"2026-06-26T11:13:55.255064Z","actor":"zokov","issue_id":"tokenmaxxing-dfc","extra":{"field":"status","new_value":"closed","old_value":"in_progress"}}
+{"id":"int-8ce03abf","kind":"field_change","created_at":"2026-06-26T11:13:55.639972Z","actor":"zokov","issue_id":"tokenmaxxing-hwx","extra":{"field":"status","new_value":"closed","old_value":"in_progress"}}
+{"id":"int-3742fddc","kind":"field_change","created_at":"2026-06-26T11:13:56.017124Z","actor":"zokov","issue_id":"tokenmaxxing-jc7","extra":{"field":"status","new_value":"closed","old_value":"in_progress"}}

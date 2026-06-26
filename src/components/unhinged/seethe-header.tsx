@@ -1,6 +1,8 @@
 import type { PluginDisplayState } from "@/lib/plugin-types"
 import { useUnhingedAggregate } from "@/hooks/use-unhinged-aggregate"
+import { playMaxSeethe } from "@/lib/unhinged/sound"
 import { useUnhingedStore } from "@/stores/unhinged-store"
+import { useEffect, useRef } from "react"
 
 // Color the score by how cooked you are — green when calm, red when maxxed.
 function scoreColor(score: number): string {
@@ -21,6 +23,14 @@ export function SeetheHeader({ plugins }: { plugins: PluginDisplayState[] }) {
   const dramaticMode = useUnhingedStore((s) => s.dramaticMode)
   const demoMode = useUnhingedStore((s) => s.demoMode)
   const agg = useUnhingedAggregate(plugins)
+
+  const prevScore = useRef(0)
+  useEffect(() => {
+    if (dramaticMode && !demoMode && agg.score >= 90 && prevScore.current < 90) {
+      playMaxSeethe()
+    }
+    prevScore.current = agg.score
+  }, [agg.score, dramaticMode, demoMode])
 
   if (!dramaticMode) return null
 
