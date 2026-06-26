@@ -29,15 +29,17 @@ export function SeetheHeader({ plugins }: { plugins: PluginDisplayState[] }) {
 
   return (
     <div
-      className={`mb-3 px-3 py-2 rounded-md border bg-muted/30 ${
-        maxSeethe ? "border-red-500/60 animate-pulse" : "border-border/50"
+      className={`mb-3 px-3 py-2 rounded-md border bg-muted/30 transition-all ${
+        maxSeethe
+          ? "border-red-500 bg-red-500/10 ring-1 ring-red-500/40 animate-pulse"
+          : "border-border/50"
       }`}
     >
       <div className="flex items-baseline justify-between gap-2">
         <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
           {maxSeethe ? "!!! " : ""}Seethe Level{demoMode ? " · DEMO" : ""}{maxSeethe ? " !!!" : ""}
         </span>
-        <span className={`text-lg font-bold tabular-nums leading-none ${scoreColor(score)}`}>
+        <span className={`text-lg font-bold tabular-nums leading-none ${scoreColor(score)} ${maxSeethe ? "drop-shadow-[0_0_3px_rgba(239,68,68,0.5)]" : ""}`}>
           {score}
           <span className="text-[10px] font-normal text-muted-foreground">
             {" "}/ 100 · {tier}

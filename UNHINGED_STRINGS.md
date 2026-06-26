@@ -18,7 +18,7 @@ shows its original wording, byte-for-byte.
 |---|---|
 | Resets in `X` | **RESPAWNS in `X`** |
 | Resets soon | **RESPAWN IMMINENT — TICK TOCK** |
-| `X` left | **`X` SECONDS TO LIVE** |
+| `X` left | **`X` TO GO** |
 | `X` (used mode) | **`X` OBLITERATED** |
 | Runs out in `X` | **!!! TOKEN DEATH in `X` !!!** |
 | `X` short | **`X` OBLITERATED** |

@@ -8,6 +8,7 @@ import {
 import { formatResetRelativeLabel } from "@/lib/reset-tooltip"
 import { aggregateFromScore } from "@/lib/unhinged/aggregate"
 import { doomMessageForEta } from "@/lib/unhinged/doom-clock"
+import { formatDramaticPrimaryValue } from "@/lib/unhinged/dramatic-primary"
 import { rankForScore } from "@/lib/unhinged/ranks"
 import { seetheBandForScore } from "@/lib/unhinged/seethe-level"
 import { pickOracleQuote } from "@/lib/unhinged/token-oracle"
@@ -41,6 +42,8 @@ describe("extreme strings evidence", () => {
     const band = seetheBandForScore(95)
     const rank = rankForScore(95)
     const agg = aggregateFromScore(95)
+    const primaryLeftPct = formatDramaticPrimaryValue(40, { kind: "percent" }, "left")
+    const primaryUsedPct = formatDramaticPrimaryValue(93, { kind: "percent" }, "used")
 
     logEvidence("paceBehind", paceBehind)
     logEvidence("paceAhead", paceAhead)
@@ -53,6 +56,8 @@ describe("extreme strings evidence", () => {
     logEvidence("tagline", band.tagline)
     logEvidence("rankBlurb", rank.blurb)
     logEvidence("aggTier", agg.tier)
+    logEvidence("primaryLeftPct", primaryLeftPct)
+    logEvidence("primaryUsedPct", primaryUsedPct)
 
     expect(paceBehind).toBe("!!! TOKEN DEATH IMMINENT !!!")
     expect(paceAhead).toBe("COPING LIKE A PROMPTLET (barely)")
@@ -64,6 +69,9 @@ describe("extreme strings evidence", () => {
     expect(band.tier).toBe("!!! MAXXED !!!")
     expect(rank.blurb).toBe("ASCENDED. THE DATACENTER KNOWS YOUR NAME.")
     expect(agg.tier).toBe("!!! MAXXED !!!")
+
+    expect(primaryLeftPct).toBe("40% TO GO")
+    expect(primaryUsedPct).toBe("93% OBLITERATED")
   })
 
   it("keeps sane-mode strings byte-for-byte at dramatic=false", () => {

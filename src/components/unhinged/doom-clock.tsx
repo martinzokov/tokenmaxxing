@@ -14,7 +14,7 @@ export function DoomClock({ plugins }: { plugins: PluginDisplayState[] }) {
   if (!doom) return null
 
   return (
-    <div className="flex items-start gap-2 mb-3 px-3 py-2 rounded-md border border-red-500/40 bg-red-500/10">
+    <div className="flex items-start gap-2 mb-3 px-3 py-2 rounded-md border border-red-500/60 bg-red-500/10 ring-1 ring-red-500/30">
       <Skull size={14} className="mt-0.5 shrink-0 text-red-500" />
       <div className="text-xs">
         <div className="font-semibold text-red-500">

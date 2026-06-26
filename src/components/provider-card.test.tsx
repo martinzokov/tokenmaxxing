@@ -612,7 +612,7 @@ describe("ProviderCard", () => {
         ]}
       />
     )
-    expect(screen.getByText("40% SECONDS TO LIVE")).toBeInTheDocument()
+    expect(screen.getByText("40% TO GO")).toBeInTheDocument()
     expect(screen.getByText("RESPAWNS in 12h 0m")).toBeInTheDocument()
     expect(screen.getByText(/!!! TOKEN DEATH in /)).toBeInTheDocument()
     expect(screen.getByText(/% OBLITERATED/)).toBeInTheDocument()

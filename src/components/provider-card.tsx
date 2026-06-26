@@ -18,6 +18,7 @@ import { calculateDeficit, calculatePaceStatus, type PaceStatus } from "@/lib/pa
 import { buildPaceDetailText, formatDeficitText, formatRunsOutText, getPaceStatusText } from "@/lib/pace-tooltip"
 import { formatResetAbsoluteLabel, formatResetRelativeLabel, formatResetTooltipText } from "@/lib/reset-tooltip"
 import { useUnhingedStore } from "@/stores/unhinged-store"
+import { formatDramaticPrimaryValue } from "@/lib/unhinged/dramatic-primary"
 
 interface ProviderCardProps {
   name: string
@@ -430,16 +431,20 @@ function MetricLineRenderer({
         ? line.used
         : Math.max(0, line.limit - line.used)
     const percent = Math.round(clamp01(shownAmount / line.limit) * 10000) / 100
-    const leftSuffix = dramaticMode
-      ? displayMode === "left" ? " SECONDS TO LIVE" : " OBLITERATED"
-      : displayMode === "left" ? " left" : ""
 
-    const primaryText =
-      line.format.kind === "percent"
-        ? `${Math.round(shownAmount)}%${leftSuffix}`
-        : line.format.kind === "dollars"
-          ? `$${formatFixedPrecisionNumber(shownAmount)}${leftSuffix}`
-          : `${formatCountNumber(shownAmount)} ${line.format.suffix}${leftSuffix}`
+    const primaryText = dramaticMode
+      ? formatDramaticPrimaryValue(shownAmount, line.format, displayMode)
+      : displayMode === "left"
+        ? line.format.kind === "percent"
+          ? `${Math.round(shownAmount)}% left`
+          : line.format.kind === "dollars"
+            ? `$${formatFixedPrecisionNumber(shownAmount)} left`
+            : `${formatCountNumber(shownAmount)} ${line.format.suffix} left`
+        : line.format.kind === "percent"
+          ? `${Math.round(shownAmount)}%`
+          : line.format.kind === "dollars"
+            ? `$${formatFixedPrecisionNumber(shownAmount)}`
+            : `${formatCountNumber(shownAmount)} ${line.format.suffix}`
 
     const resetLabel = line.resetsAt
       ? resetTimerDisplayMode === "absolute"
@@ -478,6 +483,8 @@ function MetricLineRenderer({
         })()
       : undefined
     const isLimitReached = line.used >= line.limit
+    const lineFraction = line.limit > 0 ? line.used / line.limit : 0
+    const isHighBurn = dramaticMode && lineFraction >= 0.8
     const paceDetailText =
       hasPaceContext && !isLimitReached
         ? buildPaceDetailText({
@@ -519,7 +526,7 @@ function MetricLineRenderer({
         </div>
         <Progress
           value={percent}
-          indicatorColor={line.color}
+          indicatorColor={isHighBurn ? "#ff2a2a" : line.color}
           markerValue={paceMarkerValue}
           refreshing={refreshing}
         />

@@ -21,8 +21,9 @@ export function UnhingedSection() {
     <section>
       <h3 className="text-lg font-semibold mb-0">Unhinged Mode</h3>
       <p className="text-sm text-muted-foreground mb-2">
-        Turn the cope engine on or off
+        Spicy labels and doom flavor. Toggle off for normal tracker.
       </p>
+
       <label className="flex items-center gap-2 text-sm select-none text-foreground">
         <Checkbox
           key={`dramatic-mode-${dramaticMode}`}
@@ -32,7 +33,7 @@ export function UnhingedSection() {
         Dramatic Mode
       </label>
       <p className="text-xs text-muted-foreground mt-1.5">
-        On: unhinged labels, doom clock, and the Token Oracle. Off: sane mode for people who touch grass.
+        Master switch. On = unhinged pace labels, Seethe header, Doom Clock, Token Oracle. Off = plain sane text everywhere.
       </p>
 
       <div className="mt-3 opacity-100" aria-disabled={!dramaticMode}>
@@ -53,40 +54,48 @@ export function UnhingedSection() {
           onChange={(e) => setCopeIntensity(Number(e.target.value))}
           className="w-full mt-1.5 accent-foreground disabled:opacity-40"
         />
+        <p className="text-[10px] text-muted-foreground mt-1">
+          Controls Oracle roast level. &lt;25 forces chill quotes even when maxed. Does not change other labels.
+        </p>
       </div>
 
-      <label className="flex items-center gap-2 text-sm select-none text-foreground mt-4">
-        <Checkbox
-          key={`demo-mode-${demoMode}`}
-          checked={demoMode}
-          onCheckedChange={(checked) => setDemoMode(checked === true)}
-        />
-        Demo mode
-      </label>
-      <p className="text-xs text-muted-foreground mt-1.5">
-        Override real usage and scrub the Seethe Level through every state — tiers, ranks, and Oracle roasts.
-      </p>
+      <div className="mt-4 border-t border-border/50 pt-3">
+        <label className="flex items-center gap-2 text-sm select-none text-foreground">
+          <Checkbox
+            key={`demo-mode-${demoMode}`}
+            checked={demoMode}
+            onCheckedChange={(checked) => setDemoMode(checked === true)}
+          />
+          Demo / Preview
+        </label>
+        <p className="text-xs text-muted-foreground mt-1.5">
+          Preview tool only. Overrides the aggregate Seethe score with the slider below so you can scrub tiers, ranks, header, and Oracle without real usage.
+        </p>
 
-      <div className="mt-3" aria-disabled={!dramaticMode || !demoMode}>
-        <div className="flex items-center justify-between text-sm text-foreground">
-          <span>Demo Seethe</span>
-          <span className="text-muted-foreground tabular-nums">
-            {dramaticMode
-              ? `${demoScore} · ${demoBand.tier} · ${demoRank.name}`
-              : demoScore}
-          </span>
+        <div className="mt-2" aria-disabled={!dramaticMode || !demoMode}>
+          <div className="flex items-center justify-between text-sm text-foreground">
+            <span>Demo Seethe</span>
+            <span className="text-muted-foreground tabular-nums">
+              {dramaticMode
+                ? `${demoScore} · ${demoBand.tier} · ${demoRank.name}`
+                : demoScore}
+            </span>
+          </div>
+          <input
+            type="range"
+            min={0}
+            max={100}
+            step={1}
+            value={demoScore}
+            disabled={!dramaticMode || !demoMode}
+            aria-label="Demo seethe level"
+            onChange={(e) => setDemoScore(Number(e.target.value))}
+            className="w-full mt-1.5 accent-foreground disabled:opacity-40"
+          />
+          <p className="text-[10px] text-muted-foreground mt-1">
+            When on, the main panel shows fake seethe from this slider (still respects Cope Intensity for Oracle).
+          </p>
         </div>
-        <input
-          type="range"
-          min={0}
-          max={100}
-          step={1}
-          value={demoScore}
-          disabled={!dramaticMode || !demoMode}
-          aria-label="Demo seethe level"
-          onChange={(e) => setDemoScore(Number(e.target.value))}
-          className="w-full mt-1.5 accent-foreground disabled:opacity-40"
-        />
       </div>
     </section>
   );
