@@ -36,29 +36,36 @@ function formatMonthDay(timestampMs: number): string {
   return RESET_MONTH_DAY_FORMATTER.format(timestampMs)
 }
 
-export function formatResetRelativeLabel(nowMs: number, resetsAtIso: string): string | null {
+export function formatResetRelativeLabel(
+  nowMs: number,
+  resetsAtIso: string,
+  dramatic = false,
+): string | null {
+  const verb = dramatic ? "Respawns" : "Resets"
   const resetsAtMs = parseResetTimestamp(resetsAtIso)
   if (resetsAtMs === null) return null
   const deltaMs = resetsAtMs - nowMs
-  if (deltaMs < RESET_SOON_THRESHOLD_MS) return "Resets soon"
+  if (deltaMs < RESET_SOON_THRESHOLD_MS) return dramatic ? "Respawning soon" : "Resets soon"
   const durationText = formatCompactDuration(deltaMs)
-  return durationText ? `Resets in ${durationText}` : null
+  return durationText ? `${verb} in ${durationText}` : null
 }
 
 export function formatResetAbsoluteLabel(
   nowMs: number,
   resetsAtIso: string,
   timeFormatMode: TimeFormatMode = "auto",
+  dramatic = false,
 ): string | null {
+  const verb = dramatic ? "Respawns" : "Resets"
   const resetsAtMs = parseResetTimestamp(resetsAtIso)
   if (resetsAtMs === null) return null
-  if (resetsAtMs - nowMs <= 0) return "Resets soon"
+  if (resetsAtMs - nowMs <= 0) return dramatic ? "Respawning soon" : "Resets soon"
   const dayDiff = getLocalDayIndex(resetsAtMs) - getLocalDayIndex(nowMs)
   const timeText = getTimeFormatter(timeFormatMode).format(resetsAtMs)
-  if (dayDiff <= 0) return `Resets today at ${timeText}`
-  if (dayDiff === 1) return `Resets tomorrow at ${timeText}`
+  if (dayDiff <= 0) return `${verb} today at ${timeText}`
+  if (dayDiff === 1) return `${verb} tomorrow at ${timeText}`
   const dateText = formatMonthDay(resetsAtMs)
-  return `Resets ${dateText} at ${timeText}`
+  return `${verb} ${dateText} at ${timeText}`
 }
 
 export function formatResetTooltipText({
@@ -66,13 +73,15 @@ export function formatResetTooltipText({
   resetsAtIso,
   visibleMode,
   timeFormatMode = "auto",
+  dramatic = false,
 }: {
   nowMs: number
   resetsAtIso: string
   visibleMode: ResetTimerDisplayMode
   timeFormatMode?: TimeFormatMode
+  dramatic?: boolean
 }): string | null {
   return visibleMode === "absolute"
-    ? formatResetRelativeLabel(nowMs, resetsAtIso)
-    : formatResetAbsoluteLabel(nowMs, resetsAtIso, timeFormatMode)
+    ? formatResetRelativeLabel(nowMs, resetsAtIso, dramatic)
+    : formatResetAbsoluteLabel(nowMs, resetsAtIso, timeFormatMode, dramatic)
 }

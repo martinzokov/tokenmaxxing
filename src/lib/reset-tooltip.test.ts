@@ -121,4 +121,12 @@ describe("reset-tooltip", () => {
       })
     ).toBe(`Resets today at ${expected24}`)
   })
+
+  it("uses 'Respawns' wording in dramatic mode", () => {
+    const now = Date.parse("2026-02-02T12:00:00.000Z")
+    const resetsAt = "2026-02-02T14:00:00.000Z"
+    expect(formatResetRelativeLabel(now, resetsAt)).toBe("Resets in 2h 0m")
+    expect(formatResetRelativeLabel(now, resetsAt, true)).toBe("Respawns in 2h 0m")
+    expect(formatResetAbsoluteLabel(now, resetsAt, "24h", true)).toMatch(/^Respawns today at /)
+  })
 })

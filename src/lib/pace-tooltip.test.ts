@@ -26,6 +26,21 @@ describe("pace-tooltip", () => {
     expect(getPaceStatusText("behind", true)).toBe("TOKEN DEATH IMMINENT")
   })
 
+  it("uses unhinged deficit + runs-out text in dramatic mode", () => {
+    expect(formatDeficitText(5, { kind: "percent" }, "left")).toBe("5% short")
+    expect(formatDeficitText(5, { kind: "percent" }, "left", true)).toBe("5% cooked")
+    const runsOutArgs = {
+      paceResult: { status: "behind", projectedUsage: 200 } as PaceResult,
+      used: 80,
+      limit: 100,
+      periodDurationMs: ONE_DAY_MS,
+      resetsAtMs,
+      nowMs,
+    }
+    expect(formatRunsOutText(runsOutArgs)).toMatch(/^Runs out in /)
+    expect(formatRunsOutText({ ...runsOutArgs, dramatic: true })).toMatch(/^TOKEN DEATH in /)
+  })
+
   it("formats compact durations", () => {
     expect(formatCompactDuration(30_000)).toBe("<1m")
     expect(formatCompactDuration(5 * 60_000)).toBe("5m")

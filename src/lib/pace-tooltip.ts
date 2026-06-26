@@ -64,6 +64,7 @@ export function formatRunsOutText({
   periodDurationMs,
   resetsAtMs,
   nowMs,
+  dramatic = false,
 }: {
   paceResult: PaceResult | null
   used: number
@@ -71,9 +72,11 @@ export function formatRunsOutText({
   periodDurationMs: number
   resetsAtMs: number
   nowMs: number
+  dramatic?: boolean
 }): string | null {
   const durationText = getRunsOutDurationText({ paceResult, used, limit, periodDurationMs, resetsAtMs, nowMs })
-  return durationText ? `Runs out in ${durationText}` : null
+  if (!durationText) return null
+  return dramatic ? `TOKEN DEATH in ${durationText}` : `Runs out in ${durationText}`
 }
 
 export function buildPaceDetailText({
@@ -110,11 +113,12 @@ export function buildPaceDetailText({
 export function formatDeficitText(
   deficit: number,
   format: ProgressFormat,
-  displayMode: DisplayMode
+  displayMode: DisplayMode,
+  dramatic = false
 ): string | null {
   if (!Number.isFinite(deficit) || deficit <= 0) return null
 
-  const suffix = displayMode === "left" ? "short" : "in deficit"
+  const suffix = dramatic ? "cooked" : displayMode === "left" ? "short" : "in deficit"
   if (format.kind === "percent") {
     const roundedPercent = Math.round(deficit)
     return roundedPercent > 0 ? `${roundedPercent}% ${suffix}` : null

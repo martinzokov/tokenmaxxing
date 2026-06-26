@@ -366,6 +366,7 @@ function MetricLineRenderer({
   now: number
   refreshing?: boolean
 }) {
+  const dramaticMode = useUnhingedStore((s) => s.dramaticMode)
   if (line.type === "text") {
     return (
       <div>
@@ -429,7 +430,9 @@ function MetricLineRenderer({
         ? line.used
         : Math.max(0, line.limit - line.used)
     const percent = Math.round(clamp01(shownAmount / line.limit) * 10000) / 100
-    const leftSuffix = displayMode === "left" ? " left" : ""
+    const leftSuffix = dramaticMode
+      ? displayMode === "left" ? " to live" : " burned"
+      : displayMode === "left" ? " left" : ""
 
     const primaryText =
       line.format.kind === "percent"
@@ -440,8 +443,8 @@ function MetricLineRenderer({
 
     const resetLabel = line.resetsAt
       ? resetTimerDisplayMode === "absolute"
-        ? formatResetAbsoluteLabel(now, line.resetsAt, timeFormatMode)
-        : formatResetRelativeLabel(now, line.resetsAt)
+        ? formatResetAbsoluteLabel(now, line.resetsAt, timeFormatMode, dramaticMode)
+        : formatResetRelativeLabel(now, line.resetsAt, dramaticMode)
       : null
     const resetTooltipText = line.resetsAt
       ? formatResetTooltipText({
@@ -449,6 +452,7 @@ function MetricLineRenderer({
           resetsAtIso: line.resetsAt,
           visibleMode: resetTimerDisplayMode,
           timeFormatMode,
+          dramatic: dramaticMode,
         })
       : null
 
@@ -491,7 +495,7 @@ function MetricLineRenderer({
       ? calculateDeficit(line.used, line.limit, resetsAtMs, periodDurationMs!, now)
       : null
     const deficitText = deficit !== null
-      ? formatDeficitText(deficit, line.format, displayMode)
+      ? formatDeficitText(deficit, line.format, displayMode, dramaticMode)
       : null
     const runsOutText = hasPaceContext && !isLimitReached
       ? formatRunsOutText({
@@ -501,6 +505,7 @@ function MetricLineRenderer({
           periodDurationMs: periodDurationMs!,
           resetsAtMs,
           nowMs: now,
+          dramatic: dramaticMode,
         })
       : null
 
