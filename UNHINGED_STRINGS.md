@@ -85,16 +85,6 @@ Header: **`{provider} hits the wall in {duration}`**, plus an escalating message
 | 51–80 | Seething |
 | 81–100 | Maximally unhinged |
 
-## 8. DoomTokenMaxxer demo template plugin (dev-only example provider)
-
-| Field | Value |
-|---|---|
-| plan | schizo-max |
-| line labels | Daily seethe · Weekly cope · Oracle says · Rank · Days since last rate limit |
-| Rank badge | Quota Chad |
-| Days since rate limit | 0 (based) |
-| rotating oracle | Your context window is too small, king.<br>The quota fears you. Keep going.<br>Real ones hit the limit before lunch.<br>Touching grass is just cope for the GPU-poor. |
-
-## 9. README tagline
+## 8. README tagline
 
 > "Token death is a social construct. We maxx anyway."

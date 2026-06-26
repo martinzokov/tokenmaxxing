@@ -61,13 +61,15 @@ Tokenmaxxing lives in your task bar and shows how much of each AI subscription y
 On by default in this fork; flip it off in **Settings → Unhinged Mode** for plain
 sane tracking.
 
+- **Seethe Level + Rank.** A 0–100 aggregate of all your providers, with an
+  unhinged rank ladder (*Promptlet* → *Token Deity*).
 - **Dramatic pace labels.** *Still coping* → *Getting mogged* → *TOKEN DEATH IMMINENT*.
 - **Token Oracle.** Curated copium/roasts, weighted by how cooked you are.
 - **Doom Clock.** Live countdown to the wall on your most-constrained provider.
 - **Cope Intensity slider.** Decide how unhinged the messaging gets (0 = touch grass).
+- **Demo mode.** A slider that scrubs the whole unhinged UI through every state.
 
-Building your own meme provider? See the example plugin in
-[`plugins/doomtokenmaxxer/`](plugins/doomtokenmaxxer/) — dramatic fake data, no network.
+Every string is catalogued in [UNHINGED_STRINGS.md](UNHINGED_STRINGS.md).
 
 ## Supported providers
 

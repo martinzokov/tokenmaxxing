@@ -5,9 +5,7 @@ const root = __dirname
 // "antigravity" is macOS-only (reads the macOS keychain + ~/Library paths) and
 // carries Antigravity's public OAuth constants — deferred ("pending") for the
 // cross-platform port. Re-include it once a cross-platform auth path exists.
-// "doomtokenmaxxer" is a meme example provider (fake data, no network) kept as a
-// reference for plugin authors — dev-only, like "mock". Not shipped to users.
-const exclude = new Set(["mock", "doomtokenmaxxer", "antigravity"])
+const exclude = new Set(["mock", "antigravity"])
 const srcDir = join(root, "plugins")
 const dstDir = join(root, "src-tauri", "resources", "bundled_plugins")
 
