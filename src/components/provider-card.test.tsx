@@ -590,6 +590,35 @@ describe("ProviderCard", () => {
     vi.useRealTimers()
   })
 
+  it("renders escalated dramatic progress strings via the real card path", () => {
+    useUnhingedStore.setState({ dramaticMode: true })
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date("2026-02-02T12:00:00.000Z"))
+    render(
+      <ProviderCard
+        name="Doom"
+        displayMode="left"
+        resetTimerDisplayMode="relative"
+        lines={[
+          {
+            type: "progress",
+            label: "Usage",
+            used: 60,
+            limit: 100,
+            format: { kind: "percent" },
+            resetsAt: "2026-02-03T00:00:00.000Z",
+            periodDurationMs: 24 * 60 * 60 * 1000,
+          },
+        ]}
+      />
+    )
+    expect(screen.getByText("40% SECONDS TO LIVE")).toBeInTheDocument()
+    expect(screen.getByText("RESPAWNS in 12h 0m")).toBeInTheDocument()
+    expect(screen.getByText(/!!! TOKEN DEATH in /)).toBeInTheDocument()
+    expect(screen.getByText(/% OBLITERATED/)).toBeInTheDocument()
+    vi.useRealTimers()
+  })
+
   it("shows over-limit now detail when already at or above 100%", () => {
     vi.useFakeTimers()
     const now = new Date("2026-02-02T12:00:00.000Z")

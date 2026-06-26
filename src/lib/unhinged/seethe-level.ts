@@ -17,7 +17,7 @@ const BANDS: { max: number; tier: string; tagline: string }[] = [
   { max: 39, tier: "LUKEWARM", tagline: "The grind is fake. Maxx harder or stay mid forever." },
   { max: 69, tier: "SIMMERING", tagline: "Warming up. Dangerously mid. The quota can smell you." },
   { max: 89, tier: "SEETHING", tagline: "FULL SEND. THE QUOTA FEELS NOTHING. BASED." },
-  { max: 100, tier: "MAXXED", tagline: "TOKEN DEATH IS HERE. NO REFUNDS. GLORIOUS." },
+  { max: 100, tier: "!!! MAXXED !!!", tagline: "TOKEN DEATH IS HERE. NO REFUNDS. GLORIOUS." },
 ]
 
 /** Tier + tagline for a 0-100 score. Exported so demo mode can synthesize a band. */

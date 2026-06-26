@@ -35,7 +35,7 @@ describe("computeSeetheLevel", () => {
   it("clamps a single over-limit provider to 100", () => {
     const s = computeSeetheLevel([plugin(1337, 100)])
     expect(s.score).toBe(100)
-    expect(s.tier).toBe("MAXXED")
+    expect(s.tier).toBe("!!! MAXXED !!!")
     expect(s.tagline).toBe("TOKEN DEATH IS HERE. NO REFUNDS. GLORIOUS.")
   })
 

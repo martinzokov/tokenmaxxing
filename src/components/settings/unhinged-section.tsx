@@ -1,14 +1,8 @@
 import { Checkbox } from "@/components/ui/checkbox";
+import { copeLabelForIntensity } from "@/lib/unhinged/cope-label";
 import { seetheBandForScore } from "@/lib/unhinged/seethe-level";
 import { rankForScore } from "@/lib/unhinged/ranks";
 import { useUnhingedStore } from "@/stores/unhinged-store";
-
-function copeLabel(intensity: number): string {
-  if (intensity <= 20) return "Touching grass";
-  if (intensity <= 50) return "Mildly cooked";
-  if (intensity <= 80) return "Seething";
-  return "BEYOND REASON";
-}
 
 export function UnhingedSection() {
   const dramaticMode = useUnhingedStore((s) => s.dramaticMode);
@@ -45,7 +39,7 @@ export function UnhingedSection() {
         <div className="flex items-center justify-between text-sm text-foreground">
           <span>Cope Intensity</span>
           <span className="text-muted-foreground tabular-nums">
-            {copeIntensity} · {copeLabel(copeIntensity)}
+            {copeIntensity} · {copeLabelForIntensity(copeIntensity, dramaticMode)}
           </span>
         </div>
         <input

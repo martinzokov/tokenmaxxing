@@ -40,7 +40,7 @@ export function SeetheHeader({ plugins }: { plugins: PluginDisplayState[] }) {
         <span className={`text-lg font-bold tabular-nums leading-none ${scoreColor(score)}`}>
           {score}
           <span className="text-[10px] font-normal text-muted-foreground">
-            {" "}/ 100 · {maxSeethe ? `!!! ${tier} !!!` : tier}
+            {" "}/ 100 · {tier}
           </span>
         </span>
       </div>
