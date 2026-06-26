@@ -25,16 +25,30 @@ describe("computeSeetheLevel", () => {
     expect(s.tier).toBe("COMATOSE")
   })
 
-  it("tracks the most-burned provider", () => {
+  it("averages providers so one spike does not pin the score", () => {
+    // 10% and 85% average to ~48, not 85 — each provider votes once.
     const s = computeSeetheLevel([plugin(10, 100), plugin(85, 100)])
-    expect(s.score).toBe(85)
-    expect(s.tier).toBe("SEETHING")
+    expect(s.score).toBe(48)
+    expect(s.tier).toBe("SIMMERING")
   })
 
-  it("clamps over-limit to MAXXED at 100", () => {
+  it("clamps a single over-limit provider to 100", () => {
     const s = computeSeetheLevel([plugin(1337, 100)])
     expect(s.score).toBe(100)
     expect(s.tier).toBe("MAXXED")
+  })
+
+  it("a maxed demo provider does not pin a panel full of headroom", () => {
+    // Four real providers at ~20% + one over-limit demo: well below MAXXED.
+    const s = computeSeetheLevel([
+      plugin(20, 100),
+      plugin(20, 100),
+      plugin(20, 100),
+      plugin(20, 100),
+      plugin(1337, 100),
+    ])
+    expect(s.score).toBe(36)
+    expect(s.tier).toBe("LUKEWARM")
   })
 
   it("ignores zero/invalid limits", () => {
