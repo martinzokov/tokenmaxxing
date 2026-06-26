@@ -1,5 +1,5 @@
 import type { PluginDisplayState } from "@/lib/plugin-types"
-import { computeSeetheLevel } from "@/lib/unhinged/seethe-level"
+import { useUnhingedAggregate } from "@/hooks/use-unhinged-aggregate"
 import { useUnhingedStore } from "@/stores/unhinged-store"
 
 // Color the score by how cooked you are — green when calm, red when maxxed.
@@ -19,16 +19,18 @@ function barColor(score: number): string {
 
 export function SeetheHeader({ plugins }: { plugins: PluginDisplayState[] }) {
   const dramaticMode = useUnhingedStore((s) => s.dramaticMode)
+  const demoMode = useUnhingedStore((s) => s.demoMode)
+  const agg = useUnhingedAggregate(plugins)
 
   if (!dramaticMode) return null
 
-  const { score, tier, tagline } = computeSeetheLevel(plugins)
+  const { score, tier, tagline, rank, cooked, total } = agg
 
   return (
     <div className="mb-3 px-3 py-2 rounded-md border border-border/50 bg-muted/30">
       <div className="flex items-baseline justify-between gap-2">
         <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-          Seethe Level
+          Seethe Level{demoMode ? " · DEMO" : ""}
         </span>
         <span className={`text-lg font-bold tabular-nums leading-none ${scoreColor(score)}`}>
           {score}
@@ -41,7 +43,18 @@ export function SeetheHeader({ plugins }: { plugins: PluginDisplayState[] }) {
           style={{ width: `${score}%` }}
         />
       </div>
-      <p className="mt-1 text-[11px] italic text-muted-foreground">{tagline}</p>
+      <div className="mt-1.5 flex items-center justify-between gap-2">
+        <span className="text-[11px] font-semibold uppercase tracking-wide text-foreground">
+          {rank.name}
+        </span>
+        {total > 0 && (
+          <span className="text-[10px] tabular-nums text-muted-foreground">
+            {cooked}/{total} cooked
+          </span>
+        )}
+      </div>
+      <p className="mt-0.5 text-[11px] italic text-muted-foreground">{rank.blurb}</p>
+      <p className="text-[11px] italic text-muted-foreground/70">{tagline}</p>
     </div>
   )
 }

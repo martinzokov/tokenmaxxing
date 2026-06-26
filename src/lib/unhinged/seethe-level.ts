@@ -20,8 +20,15 @@ const BANDS: { max: number; tier: string; tagline: string }[] = [
   { max: 100, tier: "MAXXED", tagline: "Token death imminent. Glorious." },
 ]
 
+/** Tier + tagline for a 0-100 score. Exported so demo mode can synthesize a band. */
+export function seetheBandForScore(score: number): { tier: string; tagline: string } {
+  const clamped = Number.isFinite(score) ? Math.min(100, Math.max(0, Math.round(score))) : 0
+  const band = BANDS.find((b) => clamped <= b.max) ?? BANDS[BANDS.length - 1]
+  return { tier: band.tier, tagline: band.tagline }
+}
+
 /** A provider's most-cooked usage line as a [0,1] fraction, or null if it has none. */
-function providerUsageFraction(plugin: PluginDisplayState): number | null {
+export function providerUsageFraction(plugin: PluginDisplayState): number | null {
   let max: number | null = null
   for (const line of plugin.data?.lines ?? []) {
     if (line.type !== "progress" || line.limit <= 0) continue
@@ -46,6 +53,5 @@ function overallSeetheFraction(plugins: PluginDisplayState[]): number {
 
 export function computeSeetheLevel(plugins: PluginDisplayState[]): SeetheLevel {
   const score = Math.round(overallSeetheFraction(plugins) * 100)
-  const band = BANDS.find((b) => score <= b.max) ?? BANDS[BANDS.length - 1]
-  return { score, tier: band.tier, tagline: band.tagline }
+  return { score, ...seetheBandForScore(score) }
 }

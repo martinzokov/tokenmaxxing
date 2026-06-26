@@ -25,7 +25,10 @@ shows its original wording, byte-for-byte.
 
 ## 3. Seethe Level header (always-on, by score 0–100)
 
-Score = average of each provider's most-cooked usage line.
+Score = average of each provider's most-cooked usage line. The panel also shows
+your current **Rank** (§4) and an `X/Y cooked` count. **Demo mode** (Settings →
+Unhinged Mode) overrides this score with a slider so you can scrub the panel,
+ranks, tiers, and Oracle through every state.
 
 | Score | Tier | Tagline |
 |---|---|---|
@@ -35,7 +38,23 @@ Score = average of each provider's most-cooked usage line.
 | 70–89 | **SEETHING** | Now we're cooking. Based. |
 | 90–100 | **MAXXED** | Token death imminent. Glorious. |
 
-## 4. Token Oracle (rotates per refresh, picked by usage tier)
+## 4. Rank ladder (aggregate of all enabled providers, by Seethe score)
+
+Shown in the Seethe panel. Driven by the same 0–100 aggregate score.
+
+| Score | Rank | Blurb |
+|---|---|---|
+| 0–9 | **Promptlet** | Barely registering. Embarrassing. |
+| 10–24 | **Token Tourist** | Just visiting. Go touch grass. |
+| 25–44 | **Cope Cadet** | Warming up. Still mostly cope. |
+| 45–64 | **Quota Grinder** | Putting in the reps. Respectable. |
+| 65–79 | **Sigma Maxxer** | Locked in. No notes. |
+| 80–94 | **Quota Chad** | Built different. The limit fears you. |
+| 95–100 | **Token Deity** | Ascended. The GPUs sing your name. |
+
+The panel also shows an **`X/Y cooked`** count (providers at/over 80% usage).
+
+## 5. Token Oracle (rotates per refresh, picked by usage tier)
 
 | Tier (usage) | Lines |
 |---|---|
@@ -45,7 +64,7 @@ Score = average of each provider's most-cooked usage line.
 
 > Cope Intensity below 25 forces the chill pool even when maxed.
 
-## 5. Doom Clock (most-constrained provider)
+## 6. Doom Clock (most-constrained provider)
 
 Header: **`{provider} hits the wall in {duration}`**, plus an escalating message by ETA:
 
@@ -57,7 +76,7 @@ Header: **`{provider} hits the wall in {duration}`**, plus an escalating message
 | ≤ 48 h | The clock is ticking, promptlet. |
 | > 48 h | Plenty of runway. Embarrassing, honestly. |
 
-## 6. Settings → Cope Intensity slider label
+## 7. Settings → Cope Intensity slider label
 
 | Value | Label |
 |---|---|
@@ -66,7 +85,7 @@ Header: **`{provider} hits the wall in {duration}`**, plus an escalating message
 | 51–80 | Seething |
 | 81–100 | Maximally unhinged |
 
-## 7. DoomTokenMaxxer demo plugin (dev-only example provider)
+## 8. DoomTokenMaxxer demo template plugin (dev-only example provider)
 
 | Field | Value |
 |---|---|
@@ -76,6 +95,6 @@ Header: **`{provider} hits the wall in {duration}`**, plus an escalating message
 | Days since rate limit | 0 (based) |
 | rotating oracle | Your context window is too small, king.<br>The quota fears you. Keep going.<br>Real ones hit the limit before lunch.<br>Touching grass is just cope for the GPU-poor. |
 
-## 8. README tagline
+## 9. README tagline
 
 > "Token death is a social construct. We maxx anyway."
