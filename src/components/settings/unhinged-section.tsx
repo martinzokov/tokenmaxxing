@@ -71,7 +71,9 @@ export function UnhingedSection() {
         <div className="flex items-center justify-between text-sm text-foreground">
           <span>Demo Seethe</span>
           <span className="text-muted-foreground tabular-nums">
-            {demoScore} · {demoBand.tier} · {demoRank.name}
+            {dramaticMode
+              ? `${demoScore} · ${demoBand.tier} · ${demoRank.name}`
+              : demoScore}
           </span>
         </div>
         <input
