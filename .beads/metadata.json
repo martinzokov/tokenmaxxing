@@ -1,0 +1,7 @@
+{
+  "database": "dolt",
+  "backend": "dolt",
+  "dolt_mode": "embedded",
+  "dolt_database": "tokenmaxxing",
+  "project_id": "b9184925-c94c-47f5-ac50-39dc4934c386"
+}
